@@ -1,7 +1,7 @@
 function generateLinks() {
   const startDate = document.getElementById("startDate").value;
   const endDate = document.getElementById("endDate").value;
-  const daysBetween = document.getElementById("daysBetween").value;
+  const daysBetween = document.getElementById("daysBetween").value+1;
 
   const startDateObject = new Date(`1910-${startDate.slice(2)}-${startDate.slice(0, 2)}`);
   const endDateObject = new Date(`1910-${endDate.slice(2)}-${endDate.slice(0, 2)}`);
