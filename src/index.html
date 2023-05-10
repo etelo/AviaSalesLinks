@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Генератор ссылок для авиабилетов</title>
+  </head>
+  <body>
+    <form>
+      <label for="startDate">Начальная дата вылета (ДДММ):</label>
+      <input type="text" id="startDate" name="startDate" value="1910" /><br />
+
+      <label for="endDate">Конечная дата вылета (ДДММ):</label>
+      <input type="text" id="endDate" name="endDate" value="2210" /><br />
+
+      <label for="daysBetween">Количество дней между вылетами:</label>
+      <input type="text" id="daysBetween" name="daysBetween" value="30" /><br />
+
+      <button type="button" onclick="generateLinks()">Создать ссылки</button>
+      <button id="openAllLinks">Открыть все ссылки</button>
+    </form>
+
+    <div id="links"></div>
+
+    <script src="dist/script.js"></script>
+    <script src="generate-links.js"></script>
+  </body>
+</html>
