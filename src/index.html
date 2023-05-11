@@ -5,23 +5,69 @@
     <title>Генератор ссылок для авиабилетов</title>
   </head>
   <body>
+    <h1>Генератор ссылок на aviasales</h1>
+    <a href="parserResult.html">Ссылка на файл</a>
     <form>
-      <label for="startDate">Начальная дата вылета (ДДММ):</label>
-      <input type="text" id="startDate" name="startDate" value="1910" /><br />
+      <label for="departureCity">Город вылета:</label>
+      <select id="departureCity" name="departureCity">
+        <option value="moscow">Москва</option>
+        <option value="stpetersburg">Санкт-Петербург</option>
+      </select>
+      <label for="arrivalCity">Город прилета:</label>
+      <select id="arrivalCity" name="arrivalCity">
+        <option value="bangkok">Бангкок</option>
+        <option value="samui">Самуи</option>
+        <option value="phuket">Пхукет</option>
+        <option value="pattaya">Паттайя</option>
+      </select>
+      <br /><br />
 
-      <label for="endDate">Конечная дата вылета (ДДММ):</label>
-      <input type="text" id="endDate" name="endDate" value="2212" /><br />
+      <label for="startDate">Начальная дата вылета:</label><br />
+      <input type="date" id="startDate" name="startDate" value="2023-10-01" /><br />
 
-      <label for="daysBetween">Количество дней между вылетами:</label>
-      <input type="text" id="daysBetween" name="daysBetween" value="30" /><br />
+      <label for="endDate">Конечная дата вылета:</label><br />
+      <input type="date" id="endDate" name="endDate" value="2023-12-01" /><br />
+
+      <label for="daysBetween">На сколько дней:</label><br />
+      <input type="number" id="daysBetween" name="daysBetween" min="0" max="90" value="30" /><br />
+
+      <label for="daysCorrect">на сколько дней можно смотреть меньше:</label><br />
+      <input
+        type="number"
+        id="daysCorrect"
+        name="daysCorrect"
+        value="1"
+        min="0"
+        max="10"
+      /><br /><br />
 
       <button type="button" onclick="generateLinks()">Создать ссылки</button>
-      <!-- <button id="openAllLinks">Открыть все ссылки</button> -->
+
+      <br /><br />
+      <input type="checkbox" id="myCheckbox" onclick="handleClick()" />
+      <label for="myCheckbox">Ссылки для парсера</label>
+      <input type="checkbox" id="myCheckbox2" onclick="handleClick()" />
+      <label for="myCheckbox2">Добавлять ссылки</label>
+
+
+      <button id="reset-button">Сбросить</button>
+      <br />
+      <br />
+      <label
+        >Можно открыть сразу много ссылок в фоновых вкладок, <br />для этого нужно нажать на ссылку
+        колесиком мышки</label
+      ><br />
+
+      <!-- <button id="save-button" type="button">Сохранить условия поиска</button> -->
     </form>
+
+    <!-- <select id="saved-flights"></select> -->
 
     <div id="links"></div>
 
-    <script src="dist/script.js"></script>
+    <script src="../dist/script.js"></script>
     <script src="generate-links.js"></script>
+    <script src="saveInput.js"></script>
+    <!-- <script src="saveInputlist.js"></script> -->
   </body>
 </html>
