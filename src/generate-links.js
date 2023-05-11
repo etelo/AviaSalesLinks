@@ -11,10 +11,10 @@ const myCheckbox = document.getElementById("myCheckbox");
 const forParser = myCheckbox.checked ? "option1" : "option2"; // устанавливаем переменную forParser в зависимости от состояния чекбокса
 const myCheckbox2 = document.getElementById("myCheckbox2");
 
-function handleClick() {
-  const forParser = myCheckbox.checked ? "option1" : "option2";
-  console.log(forParser); // выводим значение переменной forParser в консоль
-}
+// function handleClick() {
+//   const forParser = myCheckbox.checked ? "option1" : "option2";
+//   console.log(forParser); // выводим значение переменной forParser в консоль
+// }
 
 function generateLinks() {
   // Получаем значения из элементов формы
@@ -64,9 +64,10 @@ function generateLinks() {
       linkElement.href = link;
       linkElement.rel = "noopener noreferrer";
       linkElement.target = "_blank";
-      !myCheckbox.checked
-        ? (linkElement.textContent = link + ` (${daysBetween - index}дней)`)
-        : (linkElement.textContent = link);
+      // !myCheckbox.checked
+      //   ? (linkElement.textContent = link + ` (${daysBetween - index}дней)`)
+      //   : (linkElement.textContent = link);
+      linkElement.textContent = link + ` (${daysBetween - index}дней)`
       linksContainer.appendChild(linkElement);
       linksContainer.appendChild(document.createElement("br"));
       linkElement.addEventListener("mousedown", function () {
