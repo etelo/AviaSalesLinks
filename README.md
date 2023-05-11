@@ -1,1 +1,1 @@
-https://etelo.github.io/AviaSalesLinks/
+https://etelo.github.io/AviaSalesLinks/src/index.html
