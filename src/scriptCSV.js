@@ -1,29 +1,47 @@
-google.charts.load('current', {'packages':['table']});
-google.charts.setOnLoadCallback(drawTable);
+// Получаем ссылку на элемент input типа file
+const fileInput = document.getElementById('csv-file');
+// Получаем ссылку на элемент div для таблицы
+const tableDiv = document.getElementById('table');
+// Определяем функцию для загрузки файла
+fileInput.addEventListener('change', (event) => {
+  // Получаем ссылку на выбранный файл
+  const file = event.target.files[0];
+  // Создаем объект FileReader для чтения файла
+  const reader = new FileReader();
+  // Определяем функцию для чтения файла
+  reader.addEventListener('load', (event) => {
+    // Получаем содержимое файла в виде строки
+    const csvData = event.target.result;
+    // Анализируем CSV-данные с помощью библиотеки Papa Parse
+    const parsedData = Papa.parse(csvData, { header: true });
+    // Строим таблицу с помощью библиотеки Tabulator
+    const table = new Tabulator(tableDiv, {
+      data: parsedData.data,
+      columns: parsedData.meta.fields.map(field => ({ title: field, field })),
+      layout: 'fitColumns',
+      pagination: 'local',
+      paginationSize: 2000,
+      movableColumns: true,
+      resizableColumns: true,
+      initialSort: [{ column: parsedData.meta.fields[0], dir: 'asc' }]
+    });
 
-function drawTable() {
-  // Загружаем файл CSV
-  const url = 'data.csv';
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (this.readyState === 4 && this.status === 200) {
-      // Анализируем файл CSV и создаем массив данных для таблицы
-      const csv = this.responseText;
-      const data = new google.visualization.DataTable();
-      const lines = csv.split('\n');
-      const headers = lines[0].split(',');
-      for (let i = 0; i < headers.length; i++) {
-        data.addColumn('string', headers[i]);
-      }
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
-        data.addRow(values);
-      }
-      // Создаем таблицу
-      const table = new google.visualization.Table(document.getElementById('table_div'));
-      table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-    }
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
-}
+    // Добавляем обработчики событий для фильтрации таблицы
+    const filterInputs = tableDiv.querySelectorAll('.filter-input');
+    filterInputs.forEach(input => {
+      input.addEventListener('keyup', () => {
+        const filters = [];
+        filterInputs.forEach(input => {
+          const column = input.getAttribute('data-column');
+          const value = input.value;
+          if (value) {
+            filters.push({ field: column, type: 'like', value: `%${value}%` });
+          }
+        });
+        table.setFilter(filters);
+      });
+    });
+  });
+  // Читаем файл как текстовый файл
+  reader.readAsText(file);
+});

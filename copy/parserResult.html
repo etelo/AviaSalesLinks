@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV таблица</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.9.3/css/tabulator.min.css" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.9.3/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+  <h1>CSV таблица</h1>
+  <input type="file" id="csv-file" accept=".csv" />
+  <div id="table"></div>
+  <script type="text/javascript">
+    // Получаем ссылку на элемент input типа file
+    const fileInput = document.getElementById('csv-file');
+    // Получаем ссылку на элемент div для таблицы
+    const tableDiv = document.getElementById('table');
+    // Определяем функцию для загрузки файла
+    fileInput.addEventListener('change', (event) => {
+      // Получаем ссылку на выбранный файл
+      const file = event.target.files[0];
+      // Создаем объект FileReader для чтения файла
+      const reader = new FileReader();
+      // Определяем функцию для чтения файла
+      reader.addEventListener('load', (event) => {
+        // Получаем содержимое файла в виде строки
+        const csvData = event.target.result;
+        // Анализируем CSV-данные с помощью библиотеки Papa Parse
+        const parsedData = Papa.parse(csvData, { header: true });
+        // Строим таблицу с помощью библиотеки Tabulator
+        new Tabulator(tableDiv, {
+          data: parsedData.data,
+          columns: parsedData.meta.fields.map(field => ({ title: field, field })),
+          layout: 'fitColumns',
+          pagination: 'local',
+          paginationSize: 2000,
+          movableColumns: true,
+          resizableColumns: true,
+          initialSort: [{ column: parsedData.meta.fields[0], dir: 'asc' }]
+        });
+      });
+      // Читаем файл как текстовый файл
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
