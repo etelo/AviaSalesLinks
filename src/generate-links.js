@@ -67,7 +67,7 @@ function generateLinks() {
       // !myCheckbox.checked
       //   ? (linkElement.textContent = link + ` (${daysBetween - index}дней)`)
       //   : (linkElement.textContent = link);
-      linkElement.textContent = link + ` (${daysBetween - index}дней)`
+      linkElement.textContent = link + ` (${daysBetween - index}days)`
       linksContainer.appendChild(linkElement);
       linksContainer.appendChild(document.createElement("br"));
       linkElement.addEventListener("mousedown", function () {
