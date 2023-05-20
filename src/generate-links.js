@@ -16,6 +16,8 @@ const myCheckbox2 = document.getElementById("myCheckbox2");
 //   console.log(forParser); // выводим значение переменной forParser в консоль
 // }
 
+let i_count_let = 0;
+
 function generateLinks() {
   // Получаем значения из элементов формы
   const startDate = document.getElementById("startDate").value;
@@ -24,6 +26,7 @@ function generateLinks() {
   const daysCorrect = parseInt(document.getElementById("daysCorrect").value);
   const cityFromInput = document.getElementById("departureCity");
   const cityToSelectInput = document.getElementById("arrivalCity");
+  const i_count = document.getElementById("i_count");
 
   // Преобразуем введенные даты в объекты типа Date
   const startDateObject = new Date(startDate);
@@ -37,7 +40,7 @@ function generateLinks() {
   const linksContainer = document.getElementById("links");
 
   // Удаляем все ранее созданные элементы ссылок
-  if(!myCheckbox2.checked){
+  if (!myCheckbox2.checked) {
     while (linksContainer.firstChild) {
       linksContainer.removeChild(linksContainer.firstChild);
     }
@@ -46,6 +49,15 @@ function generateLinks() {
   // Создаем цикл для создания ссылок на каждый день между указанными датами
   let currentDateObject = startDateObject;
   let i = getDaysBetweenDates(startDateObject, endDateObject);
+  if (myCheckbox2.checked) {
+    i_count_let += getDaysBetweenDates(startDateObject, endDateObject);
+  }
+  else{
+    i_count_let = getDaysBetweenDates(startDateObject, endDateObject);
+  }
+
+  i_count.innerHTML = ` Ссылок: ${i_count_let}`;
+
   while (i > 0) {
     // console.log("i", i);
     i--;
@@ -67,7 +79,7 @@ function generateLinks() {
       // !myCheckbox.checked
       //   ? (linkElement.textContent = link + ` (${daysBetween - index}дней)`)
       //   : (linkElement.textContent = link);
-      linkElement.textContent = link + ` (${daysBetween - index}days)`
+      linkElement.textContent = link + ` (${daysBetween - index}days)`;
       linksContainer.appendChild(linkElement);
       linksContainer.appendChild(document.createElement("br"));
       linkElement.addEventListener("mousedown", function () {
