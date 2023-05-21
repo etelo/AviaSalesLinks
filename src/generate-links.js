@@ -50,15 +50,16 @@ function generateLinks() {
   let currentDateObject = startDateObject;
   let i = getDaysBetweenDates(startDateObject, endDateObject);
   if (myCheckbox2.checked) {
-    i_count_let += getDaysBetweenDates(startDateObject, endDateObject);
+    i_count_let += 1;
   }
   else{
-    i_count_let = getDaysBetweenDates(startDateObject, endDateObject);
+    i_count_let = 0;
   }
 
-  i_count.innerHTML = ` Ссылок: ${i_count_let}`;
+  
 
   while (i > 0) {
+
     // console.log("i", i);
     i--;
     // Форматируем текущую дату и дату через заданное количество дней
@@ -66,6 +67,8 @@ function generateLinks() {
     const endDate = dataPlusDay(currentDateObject, parseInt(daysBetween));
 
     for (let index = 0; index <= daysCorrect; index++) {
+      i_count_let += 1;
+      i_count.innerHTML = ` Ссылок: ${i_count_let}`;
       const formattedEndDate = convertDateToDDMM(dataMinusDay(endDate, index));
       const from = cityCodeMap[cityFromInput.value];
       const to = cityCodeMap[cityToSelectInput.value];
