@@ -6,6 +6,7 @@ const cityCodeMap = {
   phuket: "HKT",
   pattaya: "UTP",
   minsk: "MSQ",
+  haikou: "HAK",
 };
 // получаем элемент чекбокса
 const myCheckbox = document.getElementById("myCheckbox");
